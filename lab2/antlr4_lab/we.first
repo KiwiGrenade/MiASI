@@ -1,12 +1,15 @@
-1 + 2
-1 + 2 + 3
-> 2 -
-  3
-//x=7
-//5-x
-//3,4,5
-//if (1) 3 4
-//if (0) 5 else 6
-//if (2-2) 7
-//5
-//if(5) if (6) 7 else 8
+x := 10
+for(i := 0; i < 5; i++) {
+    print i
+}
+if(x > 5 and 3 > 4) {
+    x = 3
+    print x
+    y := 5
+}
+else {
+    x = 4
+    print x
+}
+print x
+print y
