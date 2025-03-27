@@ -1,0 +1,17 @@
+let x = 10
+let y
+for(let i = 0; i < 5; i++) {
+    print i
+}
+if(x > 5 or 3 > 4) {
+    x = 3
+    print x
+    y = 5
+}
+else {
+    x = 4
+    print x
+    y = 6
+}
+print x
+print y
