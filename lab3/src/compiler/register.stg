@@ -64,5 +64,24 @@ init(name, expr) ::= <<
 <write(name)>
 >>
 
+eq(p1, p2) ::= <<
+<twoop(p1,p2)>
+CMP A, B
+>>
+
+cond(labelID, condition, if_true, if_false="null")::=<<
+; if
+; condition:
+<condition>
+JNE cond_<labelID>_false
+; if true:
+<if_true>
+JMP cond_<labelID>_end
+; if false:
+cond_<labelID>_false:
+<if_false>
+cond_<labelID>_end:
+>>
+
 //read(n) ::= <<
 //MOV A, [<n>]

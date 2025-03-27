@@ -13,6 +13,7 @@ import java.util.Objects;
 public class EmitVisitor extends firstBaseVisitor<ST> {
     private final STGroup stGroup;
     LocalSymbols<Integer> localVars = new LocalSymbols<Integer>();
+    Integer ifCounter = 0;
 
     public EmitVisitor(STGroup group) {
         super();
@@ -64,7 +65,7 @@ public class EmitVisitor extends firstBaseVisitor<ST> {
             }
 //            case firstLexer.GE -> opAss = "ge";
 //            case firstLexer.LE -> opAss = "le";
-//            case firstLexer.EQ-> opAss = "eq";
+            case firstLexer.EQ-> opAss = "eq";
 //            case firstLexer.GEQ -> opAss = "geq";
 //            case firstLexer.LEQ -> opAss = "leq";
 //            case firstLexer.NEQ-> opAss = "neq";
@@ -117,6 +118,15 @@ public class EmitVisitor extends firstBaseVisitor<ST> {
     @Override
     public ST visitDeclare_stat(firstParser.Declare_statContext ctx) {
         return super.visitDeclare_stat(ctx);
+    }
+
+    @Override
+    public ST visitIf_stat(firstParser.If_statContext ctx) {
+        return  stGroup.getInstanceOf("cond")
+                .add("labelID", Integer.toString(ifCounter++))
+                .add("condition", visit(ctx.cond))
+                .add("if_true", visit(ctx.then))
+                .add("if_false", visit(ctx.else_));
     }
 
     @Override
