@@ -1,5 +1,10 @@
 group pierwszy;
 
+end(prog) ::= <<
+<prog>
+BRK
+>>
+
 deflt(elem) ::= <<
     <elem; separator="\n">
 >>
@@ -15,11 +20,49 @@ PUSH A
 POP B
 >>
 
-dodaj(p1,p2) ::= <<
+add(p1,p2) ::= <<
 <twoop(p1,p2)>
 ADD A,B
 >>
 
-dek(n) ::= <<
+sub(p1,p2) ::= <<
+<twoop(p1,p2)>
+SUB A,B
+>>
+
+mul(p1,p2) ::= <<
+<twoop(p1,p2)>
+MUL A,B
+>>
+
+div(p1,p2) ::= <<
+<twoop(p1,p2)>
+DIV A,B
+>>
+
+dec(n) ::= <<
 DD <n>
 >>
+
+read(n) ::= <<
+MOV A, [<n>]
+>>
+
+write(n) ::= <<
+MOV [<n>], A
+>>
+
+
+assign(name, expr) ::= <<
+<expr>
+<write(name)>
+>>
+
+init(name, expr) ::= <<
+<dec(name)>
+<expr>
+<write(name)>
+>>
+
+//read(n) ::= <<
+//MOV A, [<n>]

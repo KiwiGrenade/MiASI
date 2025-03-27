@@ -32,7 +32,7 @@ public class StartCompiler {
 
         //st group
 //        STGroup.trackCreationEvents = true;
-        STGroup group = new STGroupFile("src/compiler/pierwszy.stg");
+        STGroup group = new STGroupFile("src/compiler/register.stg");
 
         EmitVisitor em = new EmitVisitor(group);
         ST res = em.visit(tree);
