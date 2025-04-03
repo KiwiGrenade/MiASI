@@ -1,0 +1,132 @@
+group pierwszy;
+
+end(prog) ::= <<
+<prog>
+BRK
+>>
+
+deflt(elem) ::= <<
+    <elem; separator="\n">
+>>
+
+int(i) ::= <<
+MOV A,#<i>
+>>
+
+twoop(p1, p2) ::= <<
+<p2>
+PUSH A
+<p1>
+POP B
+>>
+
+add(p1,p2) ::= <<
+<twoop(p1,p2)>
+ADD A,B
+>>
+
+sub(p1,p2) ::= <<
+<twoop(p1,p2)>
+SUB A,B
+>>
+
+mul(p1,p2) ::= <<
+<twoop(p1,p2)>
+MUL A,B
+>>
+
+div(p1,p2) ::= <<
+<twoop(p1,p2)>
+DIV A,B
+>>
+
+dec(n) ::= <<
+DD <n>
+>>
+
+read(n) ::= <<
+MOV A, [<n>]
+>>
+
+write(n) ::= <<
+MOV [<n>], A
+>>
+
+
+assign(name, expr) ::= <<
+<expr>
+<write(name)>
+>>
+
+init(name, expr) ::= <<
+<dec(name)>
+<expr>
+<write(name)>
+>>
+
+not(logic_expr) ::= <<
+<logic_expr>
+NOT A
+>>
+
+comp(p1, p2, op, comp_id) ::= <<
+<twoop(p1, p2)>
+CMP A, B
+<op> label_comp_<comp_id>
+MOV A, #0
+JMP label_comp_end_<comp_id>
+label_comp_<comp_id>:
+MOV A, #1
+label_comp_end_<comp_id>:
+>>
+
+func_def(name, body, pars="null") ::= <<
+<name>:
+PUSH BP
+;MOV BP, SP
+
+;PUSH A, PUSH B
+
+<body>
+
+POP BP
+RET
+>>
+
+par_push(p) ::= <<
+<p>
+PUSH A
+>>
+
+par_pop(p) ::= <<
+POP B
+>>
+
+and(p1, p2) ::= <<
+<twoop(p1, p2)>
+AND A, B
+>>
+
+or(p1, p2) ::= <<
+<twoop(p1, p2)>
+OR A, B
+>>
+
+func_call(name, pars) ::= <<
+;<pars:par_push(); separator="\n">
+CALL <name>
+;<pars:par_pop(); separator="\n">
+>>
+
+if_stat(cond, then, label_id, else_then) ::= <<
+<cond>
+    JE label_else_<label_id>
+<then>
+    JMP label_if_end_<label_id>
+label_else_<label_id>:
+<else_then>
+label_if_end_<label_id>:
+>>
+
+//read(n) ::= <<
+//MOV A, [<n>]
