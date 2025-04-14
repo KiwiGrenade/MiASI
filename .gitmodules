@@ -1,0 +1,3 @@
+[submodule "projekty/I-Babczyński"]
+	path = projekty/I-Babczyński
+	url = git@github.com:Grubre/miasi-lang.git
